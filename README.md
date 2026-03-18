@@ -49,7 +49,7 @@ Mac / Linux
 
 ```
 source .venv/bin/activate
-```
+```****
 
 Install the project
 
@@ -57,4 +57,9 @@ Install the project
 pip install -e .
 ```
 
+Run with 
+
+```
+python -m src.project.main
+```
 ---
