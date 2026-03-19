@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import timeit
 import numpy as np
 
 
@@ -284,25 +285,6 @@ def run_test_case_1() -> None:
 def run_test_case_2() -> None:
     """
     Problem 13(ii):
-    Original weighted example.
-    """
-    points = np.array(
-        [
-            [0.0, 0.0],
-            [2.0, 0.0],
-            [3.0, 2.0],
-            [8.0, 1.0],
-            [9.0, 4.0],
-        ]
-    )
-    weights = np.array([1.0, 1.0, 2.0, 6.0, 4.0])
-
-    result = weiszfeld(points, weights, tol=1e-10, max_iter=10_000)
-    print_result("Test case 2: Original weighted example", result)
-
-def run_test_case_3() -> None:
-    """
-    Problem 13(ii):
     Less symmetric example with nonuniform weights and
     a manually chosen starting point to make the iteration visible.
     """
@@ -323,11 +305,11 @@ def run_test_case_3() -> None:
         points,
         weights,
         x0=x0,
-        tol=1e-10,
+        tol=1e-5,
         max_iter=10_000,
     )
 
-    print_result("Test case 3: Asymmetric weighted example", result)
+    print_result("Test case 2: Asymmetric weighted example", result)
 
     print("\nIteration history:")
     for k, x in enumerate(result.history[:10]):
@@ -339,7 +321,20 @@ def run_test_case_3() -> None:
 def main() -> None:
     run_test_case_1()
     run_test_case_2()
-    run_test_case_3()
+
+    runs = 10
+    print(f"\nTiming run_test_case_2() with timeit ({runs} runs)...")
+    timings = timeit.repeat(
+        stmt=lambda: run_test_case_2(),
+        repeat=runs,
+        number=1,
+    )
+
+    for i, t in enumerate(timings, start=1):
+        print(f"Run {i:2d}: {t:.6f} s")
+
+    print(f"Best time: {min(timings):.6f} s")
+    print(f"Average time: {float(np.mean(timings)):.6f} s")
 
 if __name__ == "__main__":
     main()

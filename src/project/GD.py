@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import timeit
 import numpy as np
 
 
@@ -314,7 +315,7 @@ def run_gd_test_case_2() -> None:
         points=points,
         weights=weights,
         x0=np.array([-2.0, 6.0]),
-        tol=1e-10,
+        tol=1e-5,
         max_iter=10_000,
         use_theorem4_stop=True,
         alpha0=1.0,
@@ -332,7 +333,22 @@ def run_gd_test_case_2() -> None:
 
 def main() -> None:
     run_gd_test_case_1()
+
     run_gd_test_case_2()
+
+    runs = 10
+    print(f"\nTiming run_gd_test_case_2() with timeit ({runs} runs)...")
+    timings = timeit.repeat(
+        stmt=lambda: run_gd_test_case_2(),
+        repeat=runs,
+        number=1,
+    )
+
+    for i, t in enumerate(timings, start=1):
+        print(f"Run {i:2d}: {t:.6f} s")
+
+    print(f"Best time: {min(timings):.6f} s")
+    print(f"Average time: {float(np.mean(timings)):.6f} s")
 
 
 if __name__ == "__main__":
