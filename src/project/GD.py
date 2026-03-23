@@ -300,22 +300,15 @@ def run_gd_test_case_2() -> None:
     """
     Asymmetric weighted example.
     """
-    points = np.array(
-        [
-            [0.0, 0.0],
-            [4.0, 1.0],
-            [6.0, 4.0],
-            [9.0, 0.0],
-            [10.0, 5.0],
-        ]
-    )
-    weights = np.array([1.0, 2.0, 1.0, 4.0, 2.0])
+    points = np.array([[-4,0],[-2,1],[-2,-1],[2,0],[8,0]])
+    
+    weights = np.array([1.0, 1.0, 1.0, 2.0, 3.0])
 
     result = gradient_descent_backtracking(
         points=points,
         weights=weights,
         x0=np.array([-2.0, 6.0]),
-        tol=1e-5,
+        tol=1e-9,
         max_iter=10_000,
         use_theorem4_stop=True,
         alpha0=1.0,

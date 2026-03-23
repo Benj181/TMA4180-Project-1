@@ -290,14 +290,13 @@ def run_test_case_2() -> None:
     """
     points = np.array(
         [
-            [0.0, 0.0],
-            [4.0, 1.0],
-            [6.0, 4.0],
-            [9.0, 0.0],
-            [10.0, 5.0],
+            [-1.0, -1.0],
+            [-1.0,  1.0],
+            [ 1.0, -1.0],
+            [ 1.0,  1.0],
         ]
     )
-    weights = np.array([1.0, 2.0, 1.0, 4.0, 2.0])
+    weights = np.array([1.0, 1.0, 3.0, 2.0])
 
     x0 = np.array([-2.0, 6.0])
 
@@ -305,7 +304,7 @@ def run_test_case_2() -> None:
         points,
         weights,
         x0=x0,
-        tol=1e-5,
+        tol=1e-9,
         max_iter=10_000,
     )
 
